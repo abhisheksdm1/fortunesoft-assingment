@@ -5,7 +5,7 @@ import React, { useEffect, useState } from "react";
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
 
-export default function Gener() {
+export default function Gener({title}) {
   const [movieList, setMovieList] = useState({ movies: [] }); // Initialize with an empty array
 
   const customHeaders = {
@@ -52,19 +52,26 @@ export default function Gener() {
 
   return (
     <div className="w-full">
-      <h1 className="text-3xl m-5">Gener 1</h1>
-
+      <h1 className="text-3xl m-5 mb-0">{title}</h1>
+       <Carousel responsive={responsive}
+    //    swipeable={true}
+  draggable={false}
+//   showDots={true}
+//   responsive={responsive}
+  ssr={true} // means to render carousel on server-side.
+  infinite={true}> 
       <div className="flex flex-row">
-        {/* <Carousel responsive={responsive}> */}
-          {movieList.movies.map((movie, index) => (
-            
+        
+          {movieList.movies.filter((movie)=>movie.genres[0]===title).map((movie, index) => (
+
               <img
                 src={movie.backdrop}
-                style={{ margin: '20px', width: '300px' }}
+                style={{ margin: '20px',marginTop:'0px' , width: '300px' }}
               />
           ))}
-        {/* </Carousel> */}
+        
       </div>
+      </Carousel>
     </div>
   );
 }
