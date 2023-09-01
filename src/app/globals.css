@@ -25,3 +25,11 @@ body {
     )
     rgb(var(--background-start-rgb));
 }
+.input
+{
+  border: 1px solid black;
+  background: rgb(var(--background-start-rgb));
+}
+.hr{
+  border: 2px solid black;
+}
