@@ -5,7 +5,7 @@ import React, { useEffect, useState } from "react";
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
 
-export default function Gener({title}) {
+export default function Gener({ title }) {
   const [movieList, setMovieList] = useState({ movies: [] }); // Initialize with an empty array
 
   const customHeaders = {
@@ -53,24 +53,33 @@ export default function Gener({title}) {
   return (
     <div className="w-full">
       <h1 className="text-3xl m-5 mb-0">{title}</h1>
-       <Carousel responsive={responsive}
-    //    swipeable={true}
-  draggable={false}
-//   showDots={true}
-//   responsive={responsive}
-  ssr={true} // means to render carousel on server-side.
-  infinite={true}> 
-      <div className="flex flex-row">
-        
-          {movieList.movies.filter((movie)=>movie.genres[0]===title).map((movie, index) => (
-
+      <Carousel
+        swipeable={false}
+        draggable={false}
+        showDots={true}
+        responsive={responsive}
+        ssr={true} // means to render carousel on server-side.
+        infinite={true}
+        autoPlay={true}
+        autoPlaySpeed={1000}
+        keyBoardControl={true}
+        customTransition="all .5"
+        transitionDuration={500}
+        containerClass="carousel-container"
+        removeArrowOnDeviceType={["tablet", "mobile"]}
+        dotListClass="custom-dot-list-style"
+        itemClass="carousel-item-padding-40-px"
+      >
+        <div className="flex flex-row">
+          {movieList.movies
+            .filter((movie) => movie.genres[0] === title)
+            .map((movie, index) => (
               <img
                 src={movie.backdrop}
-                style={{ margin: '20px',marginTop:'0px' , width: '300px' }}
+                style={{ margin: "20px", marginTop: "0px", width: "300px" }}
               />
-          ))}
-        
-      </div>
+            ))}
+        </div>
       </Carousel>
     </div>
   );
