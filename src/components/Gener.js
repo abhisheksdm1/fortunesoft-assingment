@@ -56,12 +56,15 @@ export default function Gener() {
 
       <div className="flex flex-row ">
         
-      
+      <Carousel responsive={responsive}>
         {movieList.movies.map((movie, index) => (
-                  
+            <div className="w-full">
+                
             <img src={movie.poster} style={{margin:'20px', width:'500px',height:'200px'}} />
             
+            </div>
         ))}
+        </Carousel>
         {/*  */}
       </div>
     </div>
