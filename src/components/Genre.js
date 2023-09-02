@@ -1,15 +1,17 @@
 "use client";
 import axios from "axios";
-
+import { CounterContext } from "@/context/counter.context";
+import { useContext } from "react";
 import React, { useEffect, useState } from "react";
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
 
-export default function Gener({ title }) {
+export default function Genre({ title }) {
   const [movieList, setMovieList] = useState({ movies: [] }); // Initialize with an empty array
-
+  const { stateSearch, setStateSearch, search, setSearch } =
+    useContext(CounterContext);
   const customHeaders = {
-    Authorization: "Bearer Wookie2019",
+    Authorization: `Bearer ${process.env.NEXT_PUBLIC_SECRET_KEY}`,
   };
 
   useEffect(() => {
@@ -34,19 +36,19 @@ export default function Gener({ title }) {
     superLargeDesktop: {
       // the naming can be any, depends on you.
       breakpoint: { max: 4000, min: 3000 },
-      items: 5,
+      items: 5.5,
     },
     desktop: {
       breakpoint: { max: 3000, min: 1024 },
-      items: 3,
+      items: 4.5,
     },
     tablet: {
       breakpoint: { max: 1024, min: 464 },
-      items: 2,
+      items: 2.5,
     },
     mobile: {
       breakpoint: { max: 464, min: 0 },
-      items: 1,
+      items: 1.5,
     },
   };
 
@@ -54,32 +56,35 @@ export default function Gener({ title }) {
     <div className="w-full">
       <h1 className="text-3xl m-5 mb-0">{title}</h1>
       <Carousel
-        swipeable={false}
-        draggable={false}
-        showDots={true}
+        center
         responsive={responsive}
-        ssr={true} // means to render carousel on server-side.
-        infinite={true}
-        autoPlay={true}
-        autoPlaySpeed={1000}
-        keyBoardControl={true}
-        customTransition="all .5"
-        transitionDuration={500}
-        containerClass="carousel-container"
-        removeArrowOnDeviceType={["tablet", "mobile"]}
-        dotListClass="custom-dot-list-style"
-        itemClass="carousel-item-padding-40-px"
+        additionalTransfrom={0}
+        arrows
+        autoPlaySpeed={3000}
+        centerMode={false}
+        className=""
+        containerClass="container-with-dots"
+        dotListClass=""
+        draggable
+        focusOnSelect={false}
+        infinite
+        itemClass=""
+        keyBoardControl
+        minimumTouchDrag={80}
+        pauseOnHover
+        renderArrowsWhenDisabled={false}
+        renderButtonGroupOutside={false}
+        renderDotsOutside={false}
       >
-        <div className="flex flex-row">
-          {movieList.movies
-            .filter((movie) => movie.genres[0] === title)
-            .map((movie, index) => (
-              <img
-                src={movie.backdrop}
-                style={{ margin: "20px", marginTop: "0px", width: "300px" }}
-              />
-            ))}
-        </div>
+        {movieList.movies
+          .filter((movie) => movie.title === search || search === "")
+          .filter((movie) => movie.genres[0] === title)
+          .map((movie, index) => (
+            <div key={index}>
+              <img className="w-4/5 m-5 mt-0" src={movie.backdrop} />
+              <p className="ml-5">{movie.title}</p>
+            </div>
+          ))}
       </Carousel>
     </div>
   );
