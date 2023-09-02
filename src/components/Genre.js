@@ -5,6 +5,7 @@ import { useContext } from "react";
 import React, { useEffect, useState } from "react";
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
+import Footer from "./Footer";
 
 export default function Genre({ title }) {
   const [movieList, setMovieList] = useState({ movies: [] }); // Initialize with an empty array
@@ -55,19 +56,18 @@ export default function Genre({ title }) {
   return (
     <div className="w-full">
       <h1 className="text-3xl m-5 mb-0">{title}</h1>
-      <Carousel
+      <Carousel 
         center
         responsive={responsive}
         additionalTransfrom={0}
         arrows
         autoPlaySpeed={3000}
         centerMode={false}
-        className=""
+        className="m-5"
         containerClass="container-with-dots"
         dotListClass=""
         draggable
         focusOnSelect={false}
-        infinite
         itemClass=""
         keyBoardControl
         minimumTouchDrag={80}
@@ -77,14 +77,15 @@ export default function Genre({ title }) {
         renderDotsOutside={false}
       >
         {movieList.movies
-          .filter((movie) => movie.title === search || search === "")
+          .filter((movie) => movie.title === search || search==="")
           .filter((movie) => movie.genres[0] === title)
           .map((movie, index) => (
-            <div key={index}>
-              <img className="w-4/5 m-5 mt-0" src={movie.backdrop} />
+            <div key={index} >
+              <img className="w-4/5  mt-0 shadow-md" src={movie.backdrop} alt="movie" />
               <p className="ml-5">{movie.title}</p>
             </div>
           ))}
+
       </Carousel>
     </div>
   );
