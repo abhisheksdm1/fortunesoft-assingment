@@ -63,7 +63,7 @@ export default function Genre({ title }) {
         arrows
         autoPlaySpeed={3000}
         centerMode={false}
-        className="m-5"
+        className="ml-5"
         containerClass="container-with-dots"
         dotListClass=""
         draggable
@@ -82,7 +82,7 @@ export default function Genre({ title }) {
           .map((movie, index) => (
             <div key={index} >
               <img className="w-4/5  mt-0 shadow-md" src={movie.backdrop} alt="movie" />
-              <p className="ml-5">{movie.title}</p>
+              <p>{movie.title}</p>
             </div>
           ))}
 
